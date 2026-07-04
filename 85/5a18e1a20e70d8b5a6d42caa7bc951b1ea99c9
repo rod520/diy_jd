@@ -1,0 +1,16 @@
+src/routes/+page.svelte
+  h_7ffaac8f5937a6 4,6-7
+src/routes/DanceScene.svelte
+  h_7ffaac8f5937a6 1-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "855a18e1a20e70d8b5a6d42caa7bc951b1ea99c9",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
