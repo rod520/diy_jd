@@ -28,6 +28,7 @@ import { MathUtils } from 'three'
 
   
 <Canvas>
+<!-- the 3d scene goes here. -->
   
 <T.PerspectiveCamera
   makeDefault
@@ -36,21 +37,26 @@ import { MathUtils } from 'three'
     ref.lookAt(0, 1, 0)
   }}
 />
-
+<!-- the camera-->
 
 <T.AmbientLight />
+<!-- lights -->
 <T.DirectionalLight
   position={[10, 5, 5]}
   castShadow
 />
 
 <Character actionKey={action} />
+<!-- my character, maybe I should use props here for positioning???-->
+
 
 <T.Mesh
   rotation.x={MathUtils.degToRad(-90)}
   receiveShadow
 >
+
   <T.CircleGeometry args={[3, 72]} />
   <T.MeshStandardMaterial color="white" />
 </T.Mesh>
+<!-- ground, where the components inside define shape and material -->
 </Canvas>

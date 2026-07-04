@@ -13,7 +13,7 @@
 	let gltf = $state<ThrelteGltf>();
 
 	let { actions } = useGltfAnimations(() => gltf);
-
+    // this is for gltf animations. We dont want that. Need to do some research into rigging?
 	let currentActionKey: CharacterActions = 'idle';
 
 	$effect(() => {
@@ -21,6 +21,8 @@
 		$actions.idle?.play();
 	});
 
+
+    // this one transitions when the action key changes, possibly useful for my needs? Comment out later
 	$effect(() => {
 		transitionTo(actionKey, 0.3);
 	});
@@ -35,11 +37,12 @@
 			currentAction.crossFadeTo(nextAction, duration, true);
 		}
 		// Not sure why I need this but the source code does not
+        // LOL ^
 		nextAction.play();
 		currentActionKey = actionKey;
 	}
 </script>
-
+<!-- My gltf component: I'll probably stick with this for now if I can-->
 <GLTF
 	bind:gltf
 	url="https://threejs.org/examples/models/gltf/Xbot.glb"
