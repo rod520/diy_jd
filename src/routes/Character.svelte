@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { GLTF, type ThrelteGltf, useGltfAnimations } from '@threlte/extras';
+	import type { Object3D } from 'three';
 	type CharacterActions =
 		'agree' | 'headShake' | 'idle' | 'run' | 'sad_pose' | 'sneak_pose' | 'walk';
 
@@ -42,7 +43,7 @@
 <GLTF
 	bind:gltf
 	url="https://threejs.org/examples/models/gltf/Xbot.glb"
-	oncreate={(scene) => {
+	oncreate={(scene: Object3D) => {
 		scene.traverse((child) => {
 			child.castShadow = true;
 		});
