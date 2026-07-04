@@ -30,5 +30,11 @@
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.60.1",
 		"vite": "^8.0.16"
+	},
+	"dependencies": {
+		"@threlte/core": "^8.5.16",
+		"@threlte/extras": "^9.21.0",
+		"@types/three": "^0.185.0",
+		"three": "^0.185.1"
 	}
 }
