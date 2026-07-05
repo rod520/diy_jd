@@ -1,0 +1,34 @@
+src/routes/Character.svelte
+  s_a987fa3bb98501::t_e8e8598d256cfe 24
+  s_bd2fe5999487f9::t_58433c2832548a 2
+  h_7ffaac8f5937a6 3-23,25,27,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d063dd9469d0248e825d2c5f9c6487a0045491d0",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a987fa3bb98501": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783288343276",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_bd2fe5999487f9": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783287026797",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
