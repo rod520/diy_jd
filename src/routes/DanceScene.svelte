@@ -5,7 +5,6 @@ import { MathUtils } from 'three'
   import Character from './Character.svelte'
   	type CharacterActions =
 		'agree' | 'headShake' | 'idle' | 'run' | 'sad_pose' | 'sneak_pose' | 'walk';
-    let action = $state<CharacterActions>('idle')
 </script>
 <button
     
@@ -46,7 +45,7 @@ import { MathUtils } from 'three'
   castShadow
 />
 
-<Character actionKey={action} />
+<Character />
 <!-- my character, maybe I should use props here for positioning???-->
 
 

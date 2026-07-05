@@ -1,54 +1,32 @@
 <script lang="ts">
-	import { GLTF, type ThrelteGltf, useGltfAnimations } from '@threlte/extras';
-	import type { Object3D } from 'three';
-	type CharacterActions =
-		'agree' | 'headShake' | 'idle' | 'run' | 'sad_pose' | 'sneak_pose' | 'walk';
+	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+	import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
+	import { T } from '@threlte/core';
+	import { VRMLoaderPlugin } from '@pixiv/three-vrm';
+	const loader = new GLTFLoader();
+	let gltf = $state<GLTF>()
+	loader.register((parser) => {
+    	return new VRMLoaderPlugin(parser);
+  	});
+	loader.load('/src/lib/assets/VRM1_Constraint_Twist_Sample.vrm',
+		(gltf0) => {
+      // retrieve a VRM instance from gltf
+      gltf  = gltf0.userData.vrm;
 
-	interface Props {
-		actionKey: CharacterActions;
-	}
+      // deal with vrm features
+      console.log(gltf);
+    },
 
-	let { actionKey = 'idle' }: Props = $props();
+    // called while loading is progressing
+    (progress) => console.log('Loading model...', 100.0 * (progress.loaded / progress.total), '%'),
 
-	let gltf = $state<ThrelteGltf>();
-
-	let { actions } = useGltfAnimations(() => gltf);
-    // this is for gltf animations. We dont want that. Need to do some research into rigging?
-	let currentActionKey: CharacterActions = 'idle';
-
-	$effect(() => {
-		// This effect acts like an init default pose
-		$actions.idle?.play();
-	});
-
-
-    // this one transitions when the action key changes, possibly useful for my needs? Comment out later
-	$effect(() => {
-		transitionTo(actionKey, 0.3);
-	});
-
-	function transitionTo(actionKey: CharacterActions, duration = 1) {
-		const currentAction = $actions[currentActionKey];
-		const nextAction = $actions[actionKey];
-		if (!nextAction || currentAction === nextAction) return;
-		// Function inspired by: https://github.com/mrdoob/three.js/blob/master/examples/webgl_animation_skinning_blending.html
-		nextAction.enabled = true;
-		if (currentAction) {
-			currentAction.crossFadeTo(nextAction, duration, true);
-		}
-		// Not sure why I need this but the source code does not
-        // LOL ^
-		nextAction.play();
-		currentActionKey = actionKey;
-	}
+    // called when loading has errors
+    (error) => console.error(error),
+	)
 </script>
+
 <!-- My gltf component: I'll probably stick with this for now if I can-->
-<GLTF
-	bind:gltf
-	url="https://threejs.org/examples/models/gltf/Xbot.glb"
-	oncreate={(scene: Object3D) => {
-		scene.traverse((child) => {
-			child.castShadow = true;
-		});
-	}}
-/>
+
+{#if gltf}
+	<T is={gltf.scene} />
+{/if}

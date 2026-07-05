@@ -32,6 +32,7 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
+		"@pixiv/three-vrm": "^3.5.4",
 		"@threlte/core": "^8.5.16",
 		"@threlte/extras": "^9.21.0",
 		"@types/three": "^0.185.0",
