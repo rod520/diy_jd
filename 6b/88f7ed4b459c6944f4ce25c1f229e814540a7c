@@ -1,0 +1,37 @@
+src/routes/Camera.svelte
+  s_b1e70c6df6e06a::t_428d6b55f0dfa2 7-8,11-12
+  s_b1e70c6df6e06a::t_7b49ccf441f02d 6,9-10,13-24,26-27,30-31,34-35,37-38,41,43-44,48
+  h_7ffaac8f5937a6 1,3-5,25,28-29,32-33,39-40,42,46-47,49-64
+  s_d44e6b4dce910c::t_22ca04d162b4ca 65
+  s_b1e70c6df6e06a::t_9cbda02b2aac5f 2
+  s_b1e70c6df6e06a::t_7f915762915a71 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6b88f7ed4b459c6944f4ce25c1f229e814540a7c",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b1e70c6df6e06a": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "994a1c83-b461-458b-b7bd-4b967ba983e4",
+        "model": "gpt-4.1"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_d44e6b4dce910c": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783447034316",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
