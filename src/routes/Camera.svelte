@@ -1,5 +1,7 @@
 <script lang="ts">
 	import * as Kalidokit from 'kalidokit/dist/kalidokit.es.js';
+	import type { Holistic as THolistic} from '@mediapipe/holistic';
+	import type { Camera as TCamera } from '@mediapipe/camera_utils';
 	import { onMount } from 'svelte';
 	let viewSelfEl: HTMLVideoElement;
 	onMount(() => {
@@ -11,8 +13,8 @@
 			const Holistic = (window as any).Holistic;
 			const Camera = (window as any).Camera;
 
-			const holistic = new Holistic({
-				locateFile: (file) => {
+			const holistic:THolistic = new Holistic({
+				locateFile: (file: string) => {
 					return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.4.1633559476/${file}`;
 				}
 			});
@@ -37,7 +39,7 @@
 			});
 
 			// use Mediapipe's webcam utils to send video to holistic every frame
-			let camera = new Camera(viewSelfEl, {
+			let camera: TCamera = new Camera(viewSelfEl, {
 				onFrame: async () => {
 					await holistic.send({ image: viewSelfEl });
 				},
