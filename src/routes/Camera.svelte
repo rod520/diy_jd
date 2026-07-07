@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as Kalidokit from 'kalidokit/dist/kalidokit.es.js';
 	import { onMount } from 'svelte';
-	let viewSelfEl: HTMLviewSelfElement;
+	let viewSelfEl: HTMLVideoElement;
 	onMount(() => {
 		void (async () => {
 			await import('@mediapipe/holistic/holistic.js');
