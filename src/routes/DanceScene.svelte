@@ -3,8 +3,7 @@ import { MathUtils } from 'three'
   import { Canvas } from '@threlte/core'
   import {T} from '@threlte/core'
   import Character from './Character.svelte'
-  	type CharacterActions =
-		'agree' | 'headShake' | 'idle' | 'run' | 'sad_pose' | 'sneak_pose' | 'walk';
+
 </script>
 <button
     

@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@mediapipe/camera_utils':
+        specifier: ^0.3.1675466862
+        version: 0.3.1675466862
+      '@mediapipe/holistic':
+        specifier: ^0.5.1675471629
+        version: 0.5.1675471629
       '@pixiv/three-vrm':
         specifier: ^3.5.4
         version: 3.5.4(three@0.185.1)
@@ -20,6 +26,9 @@ importers:
       '@types/three':
         specifier: ^0.185.0
         version: 0.185.0
+      kalidokit:
+        specifier: ^1.1.5
+        version: 1.1.5
       three:
         specifier: ^0.185.1
         version: 0.185.1
@@ -161,6 +170,12 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@mediapipe/camera_utils@0.3.1675466862':
+    resolution: {integrity: sha512-siuXBoUxWo9WL0MeAxIxvxY04bvbtdNl7uCxoJxiAiRtNnCYrurr7Vl5VYQ94P7Sq0gVq6PxIDhWWeZ/pLnSzw==}
+
+  '@mediapipe/holistic@0.5.1675471629':
+    resolution: {integrity: sha512-qY+cxtDeSOvVtevrLgnodiwXYaAtPi7dHZtNv/bUCGEjFicAOYtMmrZSqMmbPkTB2+4jLnPF1vgshkAqQRSYAw==}
 
   '@napi-rs/wasm-runtime@1.1.6':
     resolution: {integrity: sha512-ZLv/JdUfkvOy9eCnnBaGfiO+XimbjebAeO+MRQqD/B+FR1tnRN0tpKSJHRbE8sFfS6aqsXZ67TQjfwfsxULVbg==}
@@ -738,6 +753,9 @@ packages:
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
+  kalidokit@1.1.5:
+    resolution: {integrity: sha512-cLaPfCK5UB1QUesFSF12s1/ZsOz4FMcaZDqfFoIYYAzouAjzreishAKIMuoN4zhz2KLuJudGKYWVjI+VVb0W1Q==}
+
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -1260,6 +1278,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@mediapipe/camera_utils@0.3.1675466862': {}
+
+  '@mediapipe/holistic@0.5.1675471629': {}
 
   '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
     dependencies:
@@ -1811,6 +1833,8 @@ snapshots:
   json-schema-traverse@0.4.1: {}
 
   json-stable-stringify-without-jsonify@1.0.1: {}
+
+  kalidokit@1.1.5: {}
 
   keyv@4.5.4:
     dependencies:

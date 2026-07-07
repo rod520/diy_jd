@@ -32,10 +32,13 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
+		"@mediapipe/camera_utils": "^0.3.1675466862",
+		"@mediapipe/holistic": "^0.5.1675471629",
 		"@pixiv/three-vrm": "^3.5.4",
 		"@threlte/core": "^8.5.16",
 		"@threlte/extras": "^9.21.0",
 		"@types/three": "^0.185.0",
+		"kalidokit": "^1.1.5",
 		"three": "^0.185.1"
 	}
 }
