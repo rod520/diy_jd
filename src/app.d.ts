@@ -10,4 +10,8 @@ declare global {
 	}
 }
 
+declare module 'kalidokit/dist/kalidokit.es.js' {
+	export { Face, Hand, Pose, Utils } from 'kalidokit';
+}
+
 export {};

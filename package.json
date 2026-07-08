@@ -29,12 +29,17 @@
 		"svelte-check": "^4.6.0",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.60.1",
-		"vite": "^8.0.16"
+		"vite": "^8.1.3"
 	},
 	"dependencies": {
 		"@mediapipe/camera_utils": "^0.3.1675466862",
-		"@mediapipe/holistic": "^0.5.1675471629",
+		"@mediapipe/pose": "^0.5.1675469404",
 		"@pixiv/three-vrm": "^3.5.4",
+		"@tensorflow-models/pose-detection": "^2.1.3",
+		"@tensorflow/tfjs-backend-wasm": "^4.22.0",
+		"@tensorflow/tfjs-backend-webgl": "^4.22.0",
+		"@tensorflow/tfjs-backend-webgpu": "^4.22.0",
+		"@tensorflow/tfjs-core": "^4.22.0",
 		"@threlte/core": "^8.5.16",
 		"@threlte/extras": "^9.21.0",
 		"@types/three": "^0.185.0",

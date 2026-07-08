@@ -8,6 +8,8 @@
 	loader.register((parser) => {
     	return new VRMLoaderPlugin(parser);
   	});
+
+	let {callback}: {callback: (gltf: GLTF) => void} = $props()
 	loader.load('/src/lib/assets/VRM1_Constraint_Twist_Sample.vrm',
 		(gltf0) => {
       // retrieve a VRM instance from gltf
@@ -15,6 +17,7 @@
 
       // deal with vrm features
       console.log(gltf);
+	  callback(gltf)
     },
 
     // called while loading is progressing

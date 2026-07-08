@@ -1,8 +1,14 @@
 import adapter from '@sveltejs/adapter-auto';
+import { fileURLToPath } from 'node:url';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+	resolve: {
+		alias: {
+			'@mediapipe/pose': fileURLToPath(new URL('./src/lib/shims/mediapipe-pose.ts', import.meta.url))
+		}
+	},
 	plugins: [
 		sveltekit({
 			compilerOptions: {
