@@ -2,22 +2,22 @@
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 	import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 	import { T } from '@threlte/core';
-	import { VRMLoaderPlugin } from '@pixiv/three-vrm';
+	import { VRMLoaderPlugin, type VRM } from '@pixiv/three-vrm';
 	const loader = new GLTFLoader();
 	let gltf = $state<GLTF>()
 	loader.register((parser) => {
     	return new VRMLoaderPlugin(parser);
   	});
 
-	let {callback}: {callback: (gltf: GLTF) => void} = $props()
+	let {callback}: {callback: (vrm: VRM) => void} = $props()
 	loader.load('/src/lib/assets/VRM1_Constraint_Twist_Sample.vrm',
 		(gltf0) => {
       // retrieve a VRM instance from gltf
-      gltf  = gltf0.userData.vrm;
-
-      // deal with vrm features
-      console.log(gltf);
-	  callback(gltf)
+	  const vrm = gltf0.userData.vrm as VRM;
+	  // now you can use the vrm instance to access humanoid bones, blend shapes, etc.
+	  console.log('VRM model loaded:', vrm);
+	  gltf = gltf0;
+	  callback(vrm)
     },
 
     // called while loading is progressing

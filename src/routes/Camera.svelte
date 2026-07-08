@@ -1,51 +1,40 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import * as THREE from 'three';
-	import type { VRM } from '@pixiv/three-vrm';
+	import type { VRMHumanBoneName } from '@pixiv/three-vrm';
 	import { Face, Hand, Pose as KalidokitPose } from '$lib/shims/kalidokit';
+	import type { PoseDetector } from '@tensorflow-models/pose-detection';
 
-	let { gltf }: { gltf?: VRM } = $props();
+	let {
+		rigRotation
+	}: {
+		rigRotation: (
+			name: VRMHumanBoneName,
+			rotation?: { x: number; y: number; z: number },
+			dampener?: number,
+			lerpAmount?: number
+		) => void;
+	} = $props();
 	let viewSelfEl: HTMLVideoElement | undefined;
 	let handleCamera: () => Promise<void> = async () => {};
-	let detector: any;
+	let detector: PoseDetector | undefined;
 	let animationFrameId = 0;
 	let mediaStream: MediaStream | null = null;
 
-	const rigRotation = (
-		name: string,
-		rotation = { x: 0, y: 0, z: 0 },
-		dampener = 1,
-		lerpAmount = 0.3
-	) => {
-		if (!gltf) return;
-
-		const part = gltf.humanoid.getBoneNode(THREE.VRMSchema.HumanoidBoneName[name]);
-		if (!part) return;
-
-		const euler = new THREE.Euler(
-			rotation.x * dampener,
-			rotation.y * dampener,
-			rotation.z * dampener,
-			(rotation as { rotationOrder?: THREE.EulerOrder }).rotationOrder || 'XYZ'
-		);
-
-		const quaternion = new THREE.Quaternion().setFromEuler(euler);
-		part.quaternion.slerp(quaternion, lerpAmount);
-	};
-
-	onMount(() => {
+	(() => {
 		let stopped = false;
-
+		console.log('yay');
 		const processPoseResults = (pose: {
 			keypoints: Array<{ x: number; y: number; z?: number; score?: number; name?: string }>;
 			keypoints3D?: Array<{ x: number; y: number; z?: number; score?: number; name?: string }>;
 		}) => {
+			console.log('pose results', pose);
+
 			const videoEl = viewSelfEl;
 			if (!videoEl) return;
 
 			const allKeypoints = pose.keypoints;
-			const allKeypoints3D = pose.keypoints3D ?? [];
-
+			const allKeypoints3D = pose.keypoints3D;
+			console.log('all keypoints', allKeypoints);
 			const poseRig = KalidokitPose.solve(allKeypoints3D, allKeypoints, {
 				runtime: 'tfjs',
 				video: videoEl,
@@ -68,18 +57,18 @@
 			const rightHandKeypoints = allKeypoints.slice(17, 24);
 			const leftHandRig = Hand.solve(leftHandKeypoints, 'Left');
 			const rightHandRig = Hand.solve(rightHandKeypoints, 'Right');
-
-			rigRotation('Hips', poseRig.Hips.rotation, 0.7);
-			rigRotation('Chest', poseRig.Spine, 0.25, 0.3);
-			rigRotation('Spine', poseRig.Spine, 0.45, 0.3);
-			rigRotation('RightUpperArm', poseRig.RightUpperArm, 1, 0.3);
-			rigRotation('RightLowerArm', poseRig.RightLowerArm, 1, 0.3);
-			rigRotation('LeftUpperArm', poseRig.LeftUpperArm, 1, 0.3);
-			rigRotation('LeftLowerArm', poseRig.LeftLowerArm, 1, 0.3);
-			rigRotation('LeftUpperLeg', poseRig.LeftUpperLeg, 1, 0.3);
-			rigRotation('LeftLowerLeg', poseRig.LeftLowerLeg, 1, 0.3);
-			rigRotation('RightUpperLeg', poseRig.RightUpperLeg, 1, 0.3);
-			rigRotation('RightLowerLeg', poseRig.RightLowerLeg, 1, 0.3);
+			console.log('hip rotation', poseRig.Hips.rotation);
+			rigRotation('hips', poseRig.Hips.rotation, 0.7);
+			rigRotation('chest', poseRig.Spine, 0.25, 0.3);
+			rigRotation('spine', poseRig.Spine, 0.45, 0.3);
+			rigRotation('rightUpperArm', poseRig.RightUpperArm, 1, 0.3);
+			rigRotation('rightLowerArm', poseRig.RightLowerArm, 1, 0.3);
+			rigRotation('leftUpperArm', poseRig.LeftUpperArm, 1, 0.3);
+			rigRotation('leftLowerArm', poseRig.LeftLowerArm, 1, 0.3);
+			rigRotation('leftUpperLeg', poseRig.LeftUpperLeg, 1, 0.3);
+			rigRotation('leftLowerLeg', poseRig.LeftLowerLeg, 1, 0.3);
+			rigRotation('rightUpperLeg', poseRig.RightUpperLeg, 1, 0.3);
+			rigRotation('rightLowerLeg', poseRig.RightLowerLeg, 1, 0.3);
 
 			console.log(faceRig, poseRig, rightHandRig, leftHandRig);
 		};
@@ -93,54 +82,64 @@
 			}
 
 			const poses = await detector.estimatePoses(viewSelfEl, {
-				flipHorizontal: false
-			});
+				flipHorizontal: true
+			}, performance.now()
+		);
 
 			if (poses.length > 0) {
+				console.log('poses', poses);
 				processPoseResults(poses[0]);
 			}
 
 			animationFrameId = requestAnimationFrame(processFrame);
 		};
 
-		void (async () => {
+		(async () => {
 			const tf = await import('@tensorflow/tfjs-core');
 			await import('@tensorflow/tfjs-backend-webgl');
-
+			console.log('imported')
 			if (stopped) return;
 
 			await tf.setBackend('webgl');
 			await tf.ready();
 
 			const posedetection = await import('@tensorflow-models/pose-detection');
+			console.log('posedetection set')
 
 			if (stopped) return;
 
 			detector = await posedetection.createDetector(posedetection.SupportedModels.BlazePose, {
 				runtime: 'tfjs',
-				modelType: 'full'
+				modelType: 'lite'
+				
 			});
 		})();
 
 		handleCamera = async () => {
-			if (!viewSelfEl) return;
+			if (!viewSelfEl) {
+				console.log('whoops, no video elemnt');
+				return;
+			}
 
 			mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
 			viewSelfEl.srcObject = mediaStream;
 			await viewSelfEl.play();
 
-			viewSelfEl.onloadedmetadata = () => {
-				cancelAnimationFrame(animationFrameId);
-				animationFrameId = requestAnimationFrame(processFrame);
-			};
-		};
+			cancelAnimationFrame(animationFrameId);
+			animationFrameId = requestAnimationFrame(processFrame);
 
+			console.log('camera started');
+		};
+		// Cleanup function to stop the camera and cancel the animation frame
 		return () => {
+			console.log('cleanup');
 			stopped = true;
 			cancelAnimationFrame(animationFrameId);
-			mediaStream?.getTracks().forEach((track) => track.stop());
+			if (mediaStream) {
+				mediaStream.getTracks().forEach((track) => track.stop());
+			}
 		};
-	});
+	})();
 </script>
 
 <video bind:this={viewSelfEl}>Video stream not available.</video>
