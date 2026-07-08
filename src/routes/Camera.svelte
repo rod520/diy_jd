@@ -25,7 +25,7 @@
 				// landmark names may change depending on TFJS/Mediapipe model version
 				let facelm = results.faceLandmarks;
 				let poselm = results.poseLandmarks;
-
+				
 				let rightHandlm = results.rightHandLandmarks;
 				let leftHandlm = results.leftHandLandmarks;
 
