@@ -264,17 +264,8 @@ const drawResults = (results) => {
     color: "#ff0364",
     lineWidth: 2
   });
-  drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, {
-    color: "#C0C0C070",
-    lineWidth: 1
-  });
-  if (results.faceLandmarks && results.faceLandmarks.length === 478) {
-    //draw pupils
-    drawLandmarks(canvasCtx, [results.faceLandmarks[468], results.faceLandmarks[468 + 5]], {
-      color: "#ffe603",
-      lineWidth: 2
-    });
-  }
+  
+  
   drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
     color: "#eb1064",
     lineWidth: 5
