@@ -23,6 +23,7 @@
 	(() => {
 		let stopped = false;
 		console.log('yay');
+		
 		const processPoseResults = (pose: {
 			keypoints: Array<{ x: number; y: number; z?: number; score?: number; name?: string }>;
 			keypoints3D?: Array<{ x: number; y: number; z?: number; score?: number; name?: string }>;
@@ -74,6 +75,8 @@
 		};
 
 		const processFrame = async () => {
+			detector.reset();
+
 			if (stopped) return;
 
 			if (!detector || !viewSelfEl || viewSelfEl.readyState < 2) {
@@ -81,10 +84,13 @@
 				return;
 			}
 
-			const poses = await detector.estimatePoses(viewSelfEl, {
-				flipHorizontal: true
-			}, performance.now()
-		);
+			const poses = await detector.estimatePoses(
+				viewSelfEl,
+				{
+					flipHorizontal: true
+				},
+				performance.now()
+			);
 
 			if (poses.length > 0) {
 				console.log('poses', poses);
@@ -97,21 +103,20 @@
 		(async () => {
 			const tf = await import('@tensorflow/tfjs-core');
 			await import('@tensorflow/tfjs-backend-webgl');
-			console.log('imported')
+			console.log('imported');
 			if (stopped) return;
 
 			await tf.setBackend('webgl');
 			await tf.ready();
 
 			const posedetection = await import('@tensorflow-models/pose-detection');
-			console.log('posedetection set')
+			console.log('posedetection set');
 
 			if (stopped) return;
 
 			detector = await posedetection.createDetector(posedetection.SupportedModels.BlazePose, {
 				runtime: 'tfjs',
 				modelType: 'lite'
-				
 			});
 		})();
 
