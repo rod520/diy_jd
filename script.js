@@ -5,7 +5,28 @@ const lerp = Kalidokit.Vector.lerp;
 
 /* THREEJS WORLD SETUP */
 let currentVrm;
+let recordFlag = false;
+let record = [];
+let recordIndex = 0;
+const recordButton = document.getElementById("recordButton");
+let toggleRecording = () => {
+  recordFlag = !recordFlag;
+  if (recordFlag) {
+    console.log("Recording Started");
+    recordButton.value = "Stop Recording";
+  } else {
+    console.log("Recording Stopped");
+    recordButton.value = "Start Recording";
+  }
+}
 
+let playRecording = () => {
+  console.log(record);
+  if (record.length === 0) {
+    console.log("No recording to play");
+    return;
+  }
+}
 // renderer
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -120,7 +141,6 @@ const rigPosition = (
 /* VRM Character Animator */
 const animateVRM = (results) => {
 
-  console.log(results)
   // Take the results from `Holistic` and animate character based on its Face, Pose, and Hand Keypoints.
   let riggedPose, riggedLeftHand, riggedRightHand, riggedFace;
 
@@ -156,11 +176,12 @@ const animateVRM = (results) => {
 
     rigRotation("Chest", riggedPose.Spine, 0.25, .3);
     rigRotation("Spine", riggedPose.Spine, 0.45, .3);
+    
 
     rigRotation("RightUpperArm", riggedPose.RightUpperArm, 1, .3);
     rigRotation("RightLowerArm", riggedPose.RightLowerArm, 1, .3);
-    rigRotation("LeftUpperArm", riggedPose.LeftUpperArm, 1, .3);
-    rigRotation("LeftLowerArm", riggedPose.LeftLowerArm, 1, .3);
+    rigRotation("LeftUpperArm", riggedPose.LeftUpperArm, .5, .3);
+    rigRotation("LeftLowerArm", riggedPose.LeftLowerArm, .5, .3);
 
     rigRotation("LeftUpperLeg", riggedPose.LeftUpperLeg, 1, .3);
     rigRotation("LeftLowerLeg", riggedPose.LeftLowerLeg, 1, .3);
@@ -230,7 +251,17 @@ const onResults = (results) => {
   if (!currentVrm) {
     return;
   }
-  animateVRM(results);
+  if(recordFlag){
+    console.log("Recording Frame");
+    record.push(results);
+    animateVRM(results);
+  } else if (record.length - 1 > recordIndex) {
+  animateVRM(record[recordIndex]);
+  recordIndex++;
+  }
+  else{
+    animateVRM(results);
+  }
 }
 
 const holistic = new Holistic({
