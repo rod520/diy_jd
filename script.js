@@ -241,9 +241,9 @@ const holistic = new Holistic({
   holistic.setOptions({
     modelComplexity: 1,
     smoothLandmarks: true,
-    minDetectionConfidence: 0.7,
-    minTrackingConfidence: 0.7,
-    refineFaceLandmarks: true,
+    minDetectionConfidence: 0.6,
+    minTrackingConfidence: 0.6,
+    refineFaceLandmarks: false,
   });
   // Pass holistic a callback function
   holistic.onResults(onResults);
