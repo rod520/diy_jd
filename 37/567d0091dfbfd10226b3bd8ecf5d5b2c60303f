@@ -1,0 +1,14 @@
+src/routes/Camera.svelte
+  h_7ffaac8f5937a6 26,78-79,106,113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "37567d0091dfbfd10226b3bd8ecf5d5b2c60303f",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
