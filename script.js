@@ -7,13 +7,13 @@ const lerp = Kalidokit.Vector.lerp;
 let currentVrm;
 
 // renderer
-const renderer = new THREE.WebGLRenderer({alpha:true});
+const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
 // camera
-const orbitCamera = new THREE.PerspectiveCamera(35,window.innerWidth / window.innerHeight,0.1,1000);
+const orbitCamera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
 orbitCamera.position.set(0.0, 1.4, 0.7);
 
 // controls
@@ -80,12 +80,12 @@ const rigRotation = (
   dampener = 1,
   lerpAmount = 0.3
 ) => {
-  if (!currentVrm) {return}
+  if (!currentVrm) { return }
   const Part = currentVrm.humanoid.getBoneNode(
     THREE.VRMSchema.HumanoidBoneName[name]
   );
-  if (!Part) {return}
-  
+  if (!Part) { return }
+
   let euler = new THREE.Euler(
     rotation.x * dampener,
     rotation.y * dampener,
@@ -102,11 +102,11 @@ const rigPosition = (
   dampener = 1,
   lerpAmount = 0.3
 ) => {
-  if (!currentVrm) {return}
+  if (!currentVrm) { return }
   const Part = currentVrm.humanoid.getBoneNode(
     THREE.VRMSchema.HumanoidBoneName[name]
   );
-  if (!Part) {return}
+  if (!Part) { return }
   let vector = new THREE.Vector3(
     position.x * dampener,
     position.y * dampener,
@@ -119,7 +119,7 @@ const rigPosition = (
 
 /* VRM Character Animator */
 const animateVRM = (results) => {
-  
+
   console.log(results)
   // Take the results from `Holistic` and animate character based on its Face, Pose, and Hand Keypoints.
   let riggedPose, riggedLeftHand, riggedRightHand, riggedFace;
@@ -133,14 +133,14 @@ const animateVRM = (results) => {
   const leftHandLandmarks = results.rightHandLandmarks;
   const rightHandLandmarks = results.leftHandLandmarks;
 
-  
-  
+
+
 
   // Animate Pose
   if (pose2DLandmarks && pose3DLandmarks) {
     riggedPose = Kalidokit.Pose.solve(pose3DLandmarks, pose2DLandmarks, {
       runtime: "mediapipe",
-      video:videoElement,
+      video: videoElement,
     });
     rigRotation("Hips", riggedPose.Hips.rotation, 0.7);
     rigPosition(
@@ -205,7 +205,7 @@ const animateVRM = (results) => {
     rigRotation("RightRingIntermediate", riggedRightHand.RightRingIntermediate);
     rigRotation("RightRingDistal", riggedRightHand.RightRingDistal);
     rigRotation("RightIndexProximal", riggedRightHand.RightIndexProximal);
-    rigRotation("RightIndexIntermediate",riggedRightHand.RightIndexIntermediate);
+    rigRotation("RightIndexIntermediate", riggedRightHand.RightIndexIntermediate);
     rigRotation("RightIndexDistal", riggedRightHand.RightIndexDistal);
     rigRotation("RightMiddleProximal", riggedRightHand.RightMiddleProximal);
     rigRotation("RightMiddleIntermediate", riggedRightHand.RightMiddleIntermediate);
@@ -221,32 +221,33 @@ const animateVRM = (results) => {
 
 /* SETUP MEDIAPIPE HOLISTIC INSTANCE */
 let videoElement = document.querySelector(".input_video"),
-    guideCanvas = document.querySelector('canvas.guides');
+  guideCanvas = document.querySelector('canvas.guides');
 
 const onResults = (results) => {
   // Draw landmark guides
   drawResults(results)
   // Animate model
-  if (!currentVrm) {return;
+  if (!currentVrm) {
+    return;
   }
   animateVRM(results);
 }
 
 const holistic = new Holistic({
-    locateFile: file => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`;
-    }
-  });
+  locateFile: file => {
+    return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`;
+  }
+});
 
-  holistic.setOptions({
-    modelComplexity: 1,
-    smoothLandmarks: true,
-    minDetectionConfidence: 0.6,
-    minTrackingConfidence: 0.6,
-    refineFaceLandmarks: false,
-  });
-  // Pass holistic a callback function
-  holistic.onResults(onResults);
+holistic.setOptions({
+  modelComplexity: 1,
+  smoothLandmarks: true,
+  minDetectionConfidence: 0.6,
+  minTrackingConfidence: 0.6,
+  refineFaceLandmarks: false,
+});
+// Pass holistic a callback function
+holistic.onResults(onResults);
 
 const drawResults = (results) => {
   guideCanvas.width = videoElement.videoWidth;
@@ -256,46 +257,46 @@ const drawResults = (results) => {
   canvasCtx.clearRect(0, 0, guideCanvas.width, guideCanvas.height);
   // Use `Mediapipe` drawing functions
   drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
-      color: "#00cff7",
-      lineWidth: 4
-    });
-    drawLandmarks(canvasCtx, results.poseLandmarks, {
-      color: "#ff0364",
+    color: "#00cff7",
+    lineWidth: 4
+  });
+  drawLandmarks(canvasCtx, results.poseLandmarks, {
+    color: "#ff0364",
+    lineWidth: 2
+  });
+  drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, {
+    color: "#C0C0C070",
+    lineWidth: 1
+  });
+  if (results.faceLandmarks && results.faceLandmarks.length === 478) {
+    //draw pupils
+    drawLandmarks(canvasCtx, [results.faceLandmarks[468], results.faceLandmarks[468 + 5]], {
+      color: "#ffe603",
       lineWidth: 2
     });
-    drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, {
-      color: "#C0C0C070",
-      lineWidth: 1
-    });
-    if(results.faceLandmarks && results.faceLandmarks.length === 478){
-      //draw pupils
-      drawLandmarks(canvasCtx, [results.faceLandmarks[468],results.faceLandmarks[468+5]], {
-        color: "#ffe603",
-        lineWidth: 2
-      });
-    }
-    drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
-      color: "#eb1064",
-      lineWidth: 5
-    });
-    drawLandmarks(canvasCtx, results.leftHandLandmarks, {
-      color: "#00cff7",
-      lineWidth: 2
-    });
-    drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
-      color: "#22c3e3",
-      lineWidth: 5
-    });
-    drawLandmarks(canvasCtx, results.rightHandLandmarks, {
-      color: "#ff0364",
-      lineWidth: 2
-    });
+  }
+  drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
+    color: "#eb1064",
+    lineWidth: 5
+  });
+  drawLandmarks(canvasCtx, results.leftHandLandmarks, {
+    color: "#00cff7",
+    lineWidth: 2
+  });
+  drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
+    color: "#22c3e3",
+    lineWidth: 5
+  });
+  drawLandmarks(canvasCtx, results.rightHandLandmarks, {
+    color: "#ff0364",
+    lineWidth: 2
+  });
 }
 
 // Use `Mediapipe` utils to get camera - lower resolution = higher fps
 const camera = new Camera(videoElement, {
   onFrame: async () => {
-    await holistic.send({image: videoElement});
+    await holistic.send({ image: videoElement });
   },
   width: 640,
   height: 480
