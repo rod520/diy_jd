@@ -115,47 +115,11 @@ const rigPosition = (
   Part.position.lerp(vector, lerpAmount); // interpolate
 };
 
-let oldLookTarget = new THREE.Euler()
-const rigFace = (riggedFace) => {
-    if(!currentVrm){return}
-    rigRotation("Neck", riggedFace.head, 0.7);
 
-    // Blendshapes and Preset Name Schema
-    const Blendshape = currentVrm.blendShapeProxy;
-    const PresetName = THREE.VRMSchema.BlendShapePresetName;
-  
-    // Simple example without winking. Interpolate based on old blendshape, then stabilize blink with `Kalidokit` helper function.
-    // for VRM, 1 is closed, 0 is open.
-    riggedFace.eye.l = lerp(clamp(1 - riggedFace.eye.l, 0, 1),Blendshape.getValue(PresetName.Blink), .5)
-    riggedFace.eye.r = lerp(clamp(1 - riggedFace.eye.r, 0, 1),Blendshape.getValue(PresetName.Blink), .5)
-    riggedFace.eye = Kalidokit.Face.stabilizeBlink(riggedFace.eye,riggedFace.head.y)
-    Blendshape.setValue(PresetName.Blink, riggedFace.eye.l);
-    
-    // Interpolate and set mouth blendshapes
-    Blendshape.setValue(PresetName.I, lerp(riggedFace.mouth.shape.I,Blendshape.getValue(PresetName.I), .5));
-    Blendshape.setValue(PresetName.A, lerp(riggedFace.mouth.shape.A,Blendshape.getValue(PresetName.A), .5));
-    Blendshape.setValue(PresetName.E, lerp(riggedFace.mouth.shape.E,Blendshape.getValue(PresetName.E), .5));
-    Blendshape.setValue(PresetName.O, lerp(riggedFace.mouth.shape.O,Blendshape.getValue(PresetName.O), .5));
-    Blendshape.setValue(PresetName.U, lerp(riggedFace.mouth.shape.U,Blendshape.getValue(PresetName.U), .5));
-
-    //PUPILS
-    //interpolate pupil and keep a copy of the value
-    let lookTarget =
-      new THREE.Euler(
-        lerp(oldLookTarget.x , riggedFace.pupil.y, .4),
-        lerp(oldLookTarget.y, riggedFace.pupil.x, .4),
-        0,
-        "XYZ"
-      )
-    oldLookTarget.copy(lookTarget)
-    currentVrm.lookAt.applyer.lookAt(lookTarget);
-}
 
 /* VRM Character Animator */
-const animateVRM = (vrm, results) => {
-  if (!vrm) {
-    return;
-  }   
+const animateVRM = (results) => {
+  
   console.log(results)
   // Take the results from `Holistic` and animate character based on its Face, Pose, and Hand Keypoints.
   let riggedPose, riggedLeftHand, riggedRightHand, riggedFace;
@@ -169,14 +133,8 @@ const animateVRM = (vrm, results) => {
   const leftHandLandmarks = results.rightHandLandmarks;
   const rightHandLandmarks = results.leftHandLandmarks;
 
-  // Animate Face
-  if (faceLandmarks) {
-   riggedFace = Kalidokit.Face.solve(faceLandmarks,{
-      runtime:"mediapipe",
-      video:videoElement
-   });
-   rigFace(riggedFace)
-  }
+  
+  
 
   // Animate Pose
   if (pose2DLandmarks && pose3DLandmarks) {
@@ -269,7 +227,9 @@ const onResults = (results) => {
   // Draw landmark guides
   drawResults(results)
   // Animate model
-  animateVRM(currentVrm, results);
+  if (!currentVrm) {return;
+  }
+  animateVRM(results);
 }
 
 const holistic = new Holistic({
