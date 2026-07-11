@@ -28,14 +28,18 @@
     />
     
 
-    <!--     Basic Three.js -->
-    <script src="https://unpkg.com/three@0.133.0/build/three.js"></script>
-    <!--     GLTF Loader for Three.js -->
-    <script src="https://unpkg.com/three@0.133.0/examples/js/loaders/GLTFLoader.js"></script>
-    <!--     Orbit Controls for Three.js -->
-    <script src="https://unpkg.com/three@0.133.0/examples/js/controls/OrbitControls.js"></script>
-    <!--     VRM Loader for Three.js -->
-    <script src="https://unpkg.com/@pixiv/three-vrm@0.6.7/lib/three-vrm.js"></script>
+    <!--     from three-vrm example -->
+             <script src="https://unpkg.com/@pixiv/three-vrm@0.6.7/lib/three-vrm.js"></script>
+
+    <script type="importmap">
+			{
+				"imports": {
+					"three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+					"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+					"@pixiv/three-vrm": "https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3/lib/three-vrm.module.min.js"
+				}
+			}
+		</script>
     <!--     Mediapipe or Tensorflow.js -->
     <script
       src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/holistic.js"
@@ -52,8 +56,6 @@
       src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"
       crossorigin="anonymous"
     ></script>
-    <!--     Kalidokit Kinematic Solver -->
-    <script src="https://cdn.jsdelivr.net/npm/kalidokit@1.1/dist/kalidokit.umd.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -66,7 +68,7 @@
   <input type="button" value="Start Recording" onclick="toggleRecording()" id="recordButton" />
   <input type="button" value="Play recording" onclick="playRecording()" id="playRecordingButton" />
 <input type="file" id="audioInput" accept="audio/*" />
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   
   </body>
 </html>
