@@ -1,7 +1,4 @@
-//Import Helper Functions from Kalidokit
-const remap = Kalidokit.Utils.remap;
-const clamp = Kalidokit.Utils.clamp;
-const lerp = Kalidokit.Vector.lerp;
+
 
 /* THREEJS WORLD SETUP */
 let currentVrm;
@@ -11,6 +8,7 @@ let record = [];
 let recordIndex = 0;
 let recordStartTime = 0;
 let playStartTime = 0;
+let audio;
 const recordButton = document.getElementById("recordButton");
 let toggleRecording = () => {
   recordFlag = !recordFlag;
@@ -20,12 +18,25 @@ let toggleRecording = () => {
     record = [];
     recordIndex = 0;
     recordStartTime = performance.now();
+    audio.play();
     recordButton.value = "Stop Recording";
   } else {
     console.log("Recording Stopped");
+    audio.pause();
+    audio.currentTime = 0;
     recordButton.value = "Start Recording";
   }
 }
+let audioInput = document.getElementById("audioInput");
+audioInput.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  audio = new Audio(URL.createObjectURL(file));
+  audio.addEventListener("ended", () => {
+    playFlag = false;
+    recordIndex = 0;
+    
+  })
+});
 
 let playRecording = () => {
   console.log(record);
@@ -37,6 +48,11 @@ let playRecording = () => {
   playFlag = true;
   recordIndex = 0;
   playStartTime = performance.now();
+
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
   playRecordedFrame();
 }
 
