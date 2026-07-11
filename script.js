@@ -6,13 +6,20 @@ const lerp = Kalidokit.Vector.lerp;
 /* THREEJS WORLD SETUP */
 let currentVrm;
 let recordFlag = false;
+let playFlag = false;
 let record = [];
 let recordIndex = 0;
+let recordStartTime = 0;
+let playStartTime = 0;
 const recordButton = document.getElementById("recordButton");
 let toggleRecording = () => {
   recordFlag = !recordFlag;
   if (recordFlag) {
     console.log("Recording Started");
+    playFlag = false;
+    record = [];
+    recordIndex = 0;
+    recordStartTime = performance.now();
     recordButton.value = "Stop Recording";
   } else {
     console.log("Recording Stopped");
@@ -25,6 +32,31 @@ let playRecording = () => {
   if (record.length === 0) {
     console.log("No recording to play");
     return;
+  }
+  recordFlag = false;
+  playFlag = true;
+  recordIndex = 0;
+  playStartTime = performance.now();
+  playRecordedFrame();
+}
+
+let playRecordedFrame = () => {
+  if (!playFlag || record.length === 0) {
+    return;
+  }
+
+  const elapsed = performance.now() - playStartTime;
+  while (recordIndex < record.length - 1 && record[recordIndex + 1].t <= elapsed) {
+    recordIndex++;
+  }
+
+  animateVRM(record[recordIndex].results);
+
+  if (recordIndex < record.length - 1 || elapsed <= record[record.length - 1].t) {
+    requestAnimationFrame(playRecordedFrame);
+  } else {
+    playFlag = false;
+    recordIndex = 0;
   }
 }
 // renderer
@@ -140,7 +172,7 @@ const rigPosition = (
 
 /* VRM Character Animator */
 const animateVRM = (results) => {
-
+  
   // Take the results from `Holistic` and animate character based on its Face, Pose, and Hand Keypoints.
   let riggedPose, riggedLeftHand, riggedRightHand, riggedFace;
 
@@ -162,6 +194,7 @@ const animateVRM = (results) => {
       runtime: "mediapipe",
       video: videoElement,
     });
+    
     rigRotation("Hips", riggedPose.Hips.rotation, 0.7);
     rigPosition(
       "Hips",
@@ -245,24 +278,33 @@ let videoElement = document.querySelector(".input_video"),
   guideCanvas = document.querySelector('canvas.guides');
 
 const onResults = (results) => {
+  // this pushes the results to our record; next step; implement json download
+  if (recordFlag) {
+    record.push({
+      t: performance.now() - recordStartTime,
+      results: {
+        faceLandmarks: results.faceLandmarks,
+        poseLandmarks: results.poseLandmarks,
+        leftHandLandmarks: results.leftHandLandmarks,
+        rightHandLandmarks: results.rightHandLandmarks,
+        // still dont know what ea is
+        ea: results.ea
+      }
+    });
+  }
+  if (playFlag) {
+    return;
+  }
   // Draw landmark guides
   drawResults(results)
   // Animate model
   if (!currentVrm) {
     return;
   }
-  if(recordFlag){
-    console.log("Recording Frame");
-    record.push(results);
-    animateVRM(results);
-  } else if (record.length - 1 > recordIndex) {
-  animateVRM(record[recordIndex]);
-  recordIndex++;
-  }
-  else{
-    animateVRM(results);
-  }
+  animateVRM(results);
 }
+
+
 
 const holistic = new Holistic({
   locateFile: file => {
