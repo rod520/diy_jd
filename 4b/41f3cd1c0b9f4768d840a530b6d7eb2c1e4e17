@@ -1,0 +1,263 @@
+script.js
+  s_7d3c6e9e88c5ec::t_fcacf3c1064bf0 61-63
+  s_3a51f7660adf60::t_7af9811ce71c9a 72,475
+  s_0c39c9367d2471::t_75f50c49db4cc7 82
+  s_3eb460ba29e3df::t_79b23b3fdba83b 100
+  s_765fea223623af::t_d99e2ea5c5c454 170
+  s_3843c55d64890f::t_1145069dea6e1c 105
+  s_7cc27fb555a92c::t_ceb34b06ed62f7 19
+  s_c184636f5ca4d6::t_77383a92d1152e 83
+  s_592e44d5e52d20::t_1ee81ee81638a6 153-155
+  s_9bd558e1e214d8::t_6cf7efae8cf35f 70
+  s_ee16b2e89e45c8::t_29debbecc2b22c 59
+  s_71a21e9509d27c::t_9eeef71b018bb9 84-85
+  s_b899aa5606b63a::t_9d4e33d2b510f4 99
+  s_d055aa35abbfe9::t_510d7b757591a3 138-141,158-165,176-181,187-201,272-273,322,383,412,438,488,537
+  s_176e3173fd51f1::t_f2b1dc35664cee 144-147,320,377,406,435,484,534
+  s_7441484d2f0a41::t_ed363313e92805 184
+  s_29fa87ef007305::t_bc0733d6067a50 41
+  s_2f76bb3bb663e7::t_3bae2513282a49 53
+  s_d055aa35abbfe9::t_84fa2ad34b62b2 123-134,168,445,541
+  s_cd3153433644e1::t_e55794263ed08a 152
+  s_911eef714ad777::t_173db199fdbcd1 148-151,437,487,536
+  s_783ff9bbebd559::t_2979da6e098665 171-175
+  s_1549c9cc0e909e::t_0130e144503f77 183
+  s_ae4bc13441266b::t_9fa98932e61e7a 95
+  h_7ffaac8f5937a6 2-5,16-18,37-40,42,45-49,51-52,54-58,60,64-69,71,73,75-81,86-94,96-98,101-104,106-122,135-137,142-143,156-157,166-167,182,185-186,202-217,219-221,223-228,230-237,245,249-252,271,304
+  s_cd9de69d23962d::t_34b91cb0d88cb3 169
+  s_13d5d1d2c9e50d::t_1a5ea3b585b629 50
+  s_679670e9f33d81::t_738732359b4280 43-44
+  s_14cb993e3f5ff3::t_67128b6c37d9aa 229
+  s_d055aa35abbfe9::t_d2281a129c1c93 442-444
+  s_3a51f7660adf60::t_49b65ffc284631 472-474
+  s_d055aa35abbfe9::t_500e5e6c8aa943 539-540
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "4b41f3cd1c0b9f4768d840a530b6d7eb2c1e4e17",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0c39c9367d2471": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788722410",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_13d5d1d2c9e50d": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788442007",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_14cb993e3f5ff3": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783799478351",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_1549c9cc0e909e": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783794228450",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_176e3173fd51f1": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783789895896",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_29fa87ef007305": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788393565",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_2f76bb3bb663e7": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788443301",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_3843c55d64890f": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783793628115",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_3a51f7660adf60": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788639152",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_3eb460ba29e3df": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783793463307",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_592e44d5e52d20": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783790021315",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_679670e9f33d81": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788394585",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_71a21e9509d27c": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788723420",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_7441484d2f0a41": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783794229258",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_765fea223623af": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783793787656",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_783ff9bbebd559": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783793789593",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_7cc27fb555a92c": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788294098",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_7d3c6e9e88c5ec": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788580820",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_911eef714ad777": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783789945450",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_9bd558e1e214d8": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788620982",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_ae4bc13441266b": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783793521918",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_b899aa5606b63a": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783793462127",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_c184636f5ca4d6": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788745707",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_cd3153433644e1": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783790020369",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_cd9de69d23962d": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783793774671",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_d055aa35abbfe9": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "80fffe77-d990-4307-b442-653d770b80f0",
+        "model": "gpt-4.1"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_ee16b2e89e45c8": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783788575300",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
