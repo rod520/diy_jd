@@ -87,6 +87,9 @@ let len = (v) => {
 let normalize = (v) => {
   // taking your vector and making it 1 unit long, but same direction
   let l = len(v);
+  if (!l) {
+    return { x: 0, y: 0, z: 0 };
+  }
   return { x: v.x / l, y: v.y / l, z: v.z / l }
 }
 /**
@@ -115,7 +118,8 @@ let clamp = (num, min, max) => {
 /**
  * angle between 2 vectors.
  * @param {{x:number,y:number,z:number}} a First point.
- * @param {{x:number,y:number,z:number}} b Second point.
+ * @param {{x:number,y:number,z:number}} b Anchor point.
+ * @param {{x:number,y:number,z:number}} c Target point.
  * @returns {{x:number,y:number,z:number}} angle.
  */
 /*
@@ -130,12 +134,75 @@ let vecs2rot = (base, pointto) => {
   }
 */
 // I think this one rotates it in relation to whats already rotated, is that true?
-let vecs2rot = (base, pointto) => {
+let vecs2rot = (base, anchor, pointto) => {
   let d = normalize(sub(pointto, base));
 
+  if (!anchor) {
+    return {
+      x: -Math.atan2(d.y, Math.hypot(d.x, d.z)),
+      y: Math.atan2(d.x, d.z),
+      z: 0
+    };
+  }
+
+  let side = normalize(sub(anchor, base));
+  if (!len(side)) {
+    return {
+      x: -Math.atan2(d.y, Math.hypot(d.x, d.z)),
+      y: Math.atan2(d.x, d.z),
+      z: 0
+    };
+  }
+
+  let worldUp = { x: 0, y: 1, z: 0 };
+  let forward = cross(side, worldUp);
+  if (!len(forward)) {
+    forward = { x: 0, y: 0, z: 1 };
+  } else {
+    forward = normalize(forward);
+  }
+  let up = normalize(cross(forward, side));
+  let local = {
+    x: dot(d, side),
+    y: dot(d, up),
+    z: dot(d, forward)
+  };
+
   return {
-    x: -Math.atan2(d.y, Math.hypot(d.x, d.z)),
-    y: Math.atan2(d.x, d.z),
+    x: -Math.atan2(local.y, Math.hypot(local.x, local.z)),
+    y: Math.atan2(local.x, local.z),
+    z: 0
+  };
+};
+let frame2rot = (base, leftAnchor, rightAnchor, pointto) => {
+  let d = normalize(sub(pointto, base));
+  let side = normalize(sub(rightAnchor, leftAnchor));
+
+  if (!len(side)) {
+    return {
+      x: -Math.atan2(d.y, Math.hypot(d.x, d.z)),
+      y: Math.atan2(d.x, d.z),
+      z: 0
+    };
+  }
+
+  let worldUp = { x: 0, y: 1, z: 0 };
+  let forward = cross(side, worldUp);
+  if (!len(forward)) {
+    forward = { x: 0, y: 0, z: 1 };
+  } else {
+    forward = normalize(forward);
+  }
+  let up = normalize(cross(forward, side));
+  let local = {
+    x: dot(d, side),
+    y: dot(d, up),
+    z: dot(d, forward)
+  };
+
+  return {
+    x: -Math.atan2(local.y, Math.hypot(local.x, local.z)),
+    y: Math.atan2(local.x, local.z),
     z: 0
   };
 };
@@ -193,19 +260,19 @@ let solvePose = (results) => {
     : { x: 0, y: 1, z: 0 };
 
   // rotations
-  let leftUpperArm = vecs2rot(leftShoulder, leftElbow);
-  let rightUpperArm = vecs2rot(rightShoulder, rightElbow);
-  let leftLowerArm = vecs2rot(leftElbow, leftWrist);
-  let rightLowerArm = vecs2rot(rightElbow, rightWrist);
-  let leftUpperLeg = vecs2rot(leftHip, leftKnee);
-  let rightUpperLeg = vecs2rot(rightHip, rightKnee);
-  let leftLowerLeg = vecs2rot(leftKnee, leftAnkle);
-  let rightLowerLeg = vecs2rot(rightKnee, rightAnkle);
+  let leftUpperArm = vecs2rot(leftShoulder, rightShoulder, leftElbow);
+  let rightUpperArm = vecs2rot(rightShoulder, leftShoulder, rightElbow);
+  let leftLowerArm = vecs2rot(leftElbow, leftShoulder, leftWrist);
+  let rightLowerArm = vecs2rot(rightElbow, rightShoulder, rightWrist);
+  let leftUpperLeg = vecs2rot(leftHip, rightHip, leftKnee);
+  let rightUpperLeg = vecs2rot(rightHip, leftHip, rightKnee);
+  let leftLowerLeg = vecs2rot(leftKnee, leftHip, leftAnkle);
+  let rightLowerLeg = vecs2rot(rightKnee, rightHip, rightAnkle);
   let hips = mid(leftHip, rightHip);
   let shoulders = mid(leftShoulder, rightShoulder);
   let spine = mid(hips, shoulders);
-  let hipsRotation = vecs2rot(hips, shoulders);
-  let spineRotation = vecs2rot(spine, head);
+  let hipsRotation = frame2rot(hips, leftHip, rightHip, shoulders);
+  let spineRotation = frame2rot(spine, leftShoulder, rightShoulder, head);
 
   // hand rotations
   let leftHandRoll = palmRoll(leftHandNormal);
