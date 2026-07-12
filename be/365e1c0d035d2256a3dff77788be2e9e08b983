@@ -1,0 +1,14 @@
+index.html
+  h_7ffaac8f5937a6 16-19,21-24,27,30,32,36,38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "be365e1c0d035d2256a3dff77788be2e9e08b983",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
