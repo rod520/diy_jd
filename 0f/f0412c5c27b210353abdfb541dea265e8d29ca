@@ -1,0 +1,43 @@
+script.js
+  s_7a188c3246d3c2::t_077958d9e1f57f 6
+  s_4278d5e87fbb6a::t_6fdfc1dbc65a3d 24
+  s_f954c53e583a57::t_47ba7a59fa828a 7
+  h_7ffaac8f5937a6 2-4,25-36,44,63,81,99-101,110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "0ff0412c5c27b210353abdfb541dea265e8d29ca",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_4278d5e87fbb6a": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783901501983",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_7a188c3246d3c2": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783898184175",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_f954c53e583a57": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1783898187371",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
