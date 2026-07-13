@@ -1,0 +1,14 @@
+script.js
+  h_7ffaac8f5937a6 3-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "adb5bd85c2e84efe2aaf33d7b9f294ae333f1448",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
