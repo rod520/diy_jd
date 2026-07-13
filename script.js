@@ -1,5 +1,7 @@
 let videoElement = document.querySelector(".input_video"),
   guideCanvas = document.querySelector('canvas.guides'),
+  maskCanvas = document.querySelector('canvas.masked');
+
 const recordButton = document.getElementById("recordButton");
 let recordFlag = false;
 let playFlag = false;
@@ -18,6 +20,19 @@ let toggleRecording = () => {
     audio.currentTime = 0;
     recordButton.value = "Start Recording";
   }
+}
+const drawMask = (results) => {
+  maskCanvas.width = videoElement.videoWidth;
+  maskCanvas.height = videoElement.videoHeight;
+  let canvasCtx = maskCanvas.getContext('2d');
+  canvasCtx.save();
+  canvasCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+  canvasCtx.drawImage(
+    results.segmentationMask, 0, 0, maskCanvas.width, maskCanvas.height
+  );
+  canvasCtx.restore();
+
+
 }
 let audioInput = document.getElementById("audioInput");
 audioInput.addEventListener("change", (event) => {
@@ -45,7 +60,6 @@ const onResults = (results) => {
   }
   // Draw landmark guides
   drawResults(results)
-  drawMask(results.segmentation_mask)
 }
 
 let playRecording = () => {
@@ -100,7 +114,10 @@ pose.setOptions({
   minTrackingConfidence: 0.5
 });
 pose.onResults(onResults);
-
+const selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
+  return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/${file}`;
+}});
+selfieSegmentation.onResults(drawMask);
 const camera = new Camera(videoElement, {
   onFrame: async () => {
     await pose.send({ image: videoElement });

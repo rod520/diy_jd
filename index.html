@@ -4,20 +4,10 @@
 <head>
   <meta charset="utf-8" />
   <!-- HTML Meta Tags -->
-  <title>KalidoKit - Face and Body Rig Solver</title>
-  <meta name="description" content="Track face and body rigs just your browser webcam!" />
+  <title>diy body tracking dance</title>
+  <meta name="description" content="Track face and body  just your browser webcam!" />
 
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta property="twitter:domain" content="kit.kalidoface.com" />
-  <meta property="twitter:url" content="https://kit.kalidoface.com/" />
-  <meta name="twitter:title" content="KalidoKit - Face and Body Rig Solver" />
-  <meta name="twitter:description" content="Track face and body rigs just your browser webcam!" />
-  <meta name="twitter:image"
-    content="https://cdn.glitch.com/239c5934-4d83-4c5c-bef6-44dcdb04c8fb%2Fkalidoface-meta.jpg?v=1630110302224" />
-  <meta name="viewport"
-    content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
-
+  
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466124/drawing_utils.min.js"></script>
@@ -38,6 +28,10 @@
   <div class="preview">
     <video class="input_video" width="1280px" height="720px" autoplay muted playsinline></video>
     <canvas class="guides"></canvas>
+
+    <canvas class="masked"></canvas>
+
+
 
   </div>
 
