@@ -27,9 +27,16 @@ const drawMask = (results) => {
   let canvasCtx = maskCanvas.getContext('2d');
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+  canvasCtx.drawImage(results.segmentationMask, 0, 0,
+    maskCanvas.width, maskCanvas.height);
+  // Only overwrite existing pixels.
+  canvasCtx.globalCompositeOperation = 'source-in';
+  canvasCtx.fillStyle = '#00FF00';
+  canvasCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+  // Only overwrite missing pixels.
+  canvasCtx.globalCompositeOperation = 'destination-atop';
   canvasCtx.drawImage(
-    results.segmentationMask, 0, 0, maskCanvas.width, maskCanvas.height
-  );
+    results.image, 0, 0, maskCanvas.width, maskCanvas.height);
   canvasCtx.restore();
 
 
@@ -114,13 +121,20 @@ pose.setOptions({
   minTrackingConfidence: 0.5
 });
 pose.onResults(onResults);
-const selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
-  return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/${file}`;
-}});
+const selfieSegmentation = new SelfieSegmentation({
+  locateFile: (file) => {
+    return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/${file}`;
+  }
+});
+selfieSegmentation.setOptions({
+  modelSelection: 1,
+});
 selfieSegmentation.onResults(drawMask);
+
 const camera = new Camera(videoElement, {
   onFrame: async () => {
     await pose.send({ image: videoElement });
+    await selfieSegmentation.send({ image: videoElement });
   },
   width: 640,
   height: 480

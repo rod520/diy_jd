@@ -7,7 +7,7 @@
   <title>diy body tracking dance</title>
   <meta name="description" content="Track face and body  just your browser webcam!" />
 
-  
+
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466124/drawing_utils.min.js"></script>
@@ -24,12 +24,19 @@
 </head>
 
 <body>
-
-  <div class="preview">
-    <video class="input_video" width="1280px" height="720px" autoplay muted playsinline></video>
-    <canvas class="guides"></canvas>
+  <div>
 
     <canvas class="masked"></canvas>
+  </div>
+
+
+  <div class="preview">
+
+
+    <video class="input_video" width="1280px" height="720px" autoplay muted playsinline></video>
+
+    <canvas class="guides"></canvas>
+
 
 
 
