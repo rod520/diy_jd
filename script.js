@@ -30,12 +30,37 @@ const drawOn = (canvasCtx, landmarks) => {
     canvasCtx.fillStyle = color;
     canvasCtx.fill();
   };
+// head circle: radius is .75 times distance to the shoulder (landmark 11)
+  const shoulderDistance = Math.sqrt(
+    Math.pow(landmarks[11].x * maskCanvas.width - landmarks[12].x * maskCanvas.width, 2) +
+    Math.pow(landmarks[11].y * maskCanvas.height - landmarks[12].y * maskCanvas.height, 2)
+  );
+  const headRadius = shoulderDistance * 0.75;
+  console.log("headRadius: " + headRadius);
+  drawCircle(0, headRadius, "rgb(5, 47, 0)");
 
-  drawCircle(0, 140, "rgb(5, 47, 0)");
-  drawCircle(15, 50, "rgba(0, 207, 247, 1)");
-  drawCircle(16, 50, "rgba(0, 207, 247, 1)");
-  drawCircle(27, 50, "rgba(255, 3, 100, 1)");
-  drawCircle(28, 50, "rgba(255, 3, 100, 1)");
+// wrist circles: radius is 3 times distance to the index finger (landmark 13) or half to elbow, whichever is smaller, centered on wrist (landmark 15 and 16)
+  const wristDistance = Math.sqrt(
+    Math.pow(landmarks[13].x * maskCanvas.width - landmarks[15].x * maskCanvas.width, 2) +
+    Math.pow(landmarks[13].y * maskCanvas.height - landmarks[15].y * maskCanvas.height, 2)
+  );
+  const elbowDistance = Math.sqrt(
+    Math.pow(landmarks[13].x * maskCanvas.width - landmarks[11].x * maskCanvas.width, 2) +
+    Math.pow(landmarks[13].y * maskCanvas.height - landmarks[11].y * maskCanvas.height, 2)
+  );
+  const wristRadius = Math.min(3 * wristDistance, elbowDistance * 0.2);
+  console.log("wristRadius: " + wristRadius);
+  drawCircle(15, wristRadius, "rgba(0, 207, 247, 1)");
+  drawCircle(16, wristRadius, "rgba(0, 207, 247, 1)");
+
+  // foot: radius is distance to heel (landmark 29 and 30), centered on foot index
+  const footDistance = Math.sqrt(
+    Math.pow(landmarks[29].x * maskCanvas.width - landmarks[30].x * maskCanvas.width, 2) +
+    Math.pow(landmarks[29].y * maskCanvas.height - landmarks[30].y * maskCanvas.height, 2)
+  );
+  const footRadius = footDistance * 0.5;
+  drawCircle(31, footRadius, "rgba(255, 3, 100, 1)");
+  drawCircle(32, footRadius, "rgba(255, 3, 100, 1)");
 
   canvasCtx.beginPath();
 // draw a 4 sided polygon on each landmark  
