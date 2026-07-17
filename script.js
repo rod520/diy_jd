@@ -8,20 +8,12 @@ let playFlag = false;
 let chunks = [];
 let latestPoseLandmarks = null;
 
-const landmarkCircles = [
-  { index: 0, radius: 140, color: "rgb(5, 47, 0)" },
-  { index: 15, radius: 50, color: "rgba(0, 207, 247, 1)" },
-  { index: 16, radius: 50, color: "rgba(0, 207, 247, 1)" },
-  { index: 27, radius: 50, color: "rgba(255, 3, 100, 1)" },
-  { index: 28, radius: 50, color: "rgba(255, 3, 100, 1)" }
-];
-
 const drawOn = (canvasCtx, landmarks) => {
   if (!landmarks) {
     return;
   }
 
-  landmarkCircles.forEach(({ index, radius, color }) => {
+  const drawCircle = (index, radius, color) => {
     const landmark = landmarks[index];
     if (!landmark) {
       return;
@@ -37,9 +29,13 @@ const drawOn = (canvasCtx, landmarks) => {
     );
     canvasCtx.fillStyle = color;
     canvasCtx.fill();
-  });
+  };
 
-  
+  drawCircle(0, 140, "rgb(5, 47, 0)");
+  drawCircle(15, 50, "rgba(0, 207, 247, 1)");
+  drawCircle(16, 50, "rgba(0, 207, 247, 1)");
+  drawCircle(27, 50, "rgba(255, 3, 100, 1)");
+  drawCircle(28, 50, "rgba(255, 3, 100, 1)");
 
   canvasCtx.beginPath();
 // draw a 4 sided polygon on each landmark  
