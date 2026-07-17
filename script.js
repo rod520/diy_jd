@@ -69,17 +69,15 @@ const drawMask = (results) => {
   canvasCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
   canvasCtx.drawImage(results.segmentationMask, 0, 0,
     maskCanvas.width, maskCanvas.height);
-  // Only overwrite existing pixels.
-      canvasCtx.globalCompositeOperation = 'source-out';
-  canvasCtx.fillStyle = '#00FF00';
-  canvasCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
-  // Only overwrite missing pixels.
-  canvasCtx.globalCompositeOperation = 'destination-atop';
-  canvasCtx.drawImage(
-    results.image, 0, 0, maskCanvas.width, maskCanvas.height);
-  canvasCtx.globalCompositeOperation = 'source-over';
+//The new shape is drawn only where both the new shape and the destination canvas overlap. Everything else is made transparent.
+      canvasCtx.globalCompositeOperation = 'source-atop';
   drawLandmarkCircles(canvasCtx, latestPoseLandmarks);
+  // Only overwrite existing pixels.
+
+ 
+    
   canvasCtx.restore();
+  
 
 
 }
