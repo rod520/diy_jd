@@ -9,11 +9,11 @@ let chunks = [];
 let latestPoseLandmarks = null;
 
 const landmarkCircles = [
-  { index: 0, radius: 56, color: "rgba(255, 255, 255, 0.75)" },
-  { index: 15, radius: 32, color: "rgba(0, 207, 247, 0.55)" },
-  { index: 16, radius: 32, color: "rgba(0, 207, 247, 0.55)" },
-  { index: 27, radius: 38, color: "rgba(255, 3, 100, 0.5)" },
-  { index: 28, radius: 38, color: "rgba(255, 3, 100, 0.5)" }
+  { index: 0, radius: 80, color: "rgba(255, 255, 255, 1)" },
+  { index: 15, radius: 40, color: "rgba(0, 207, 247, 1)" },
+  { index: 16, radius: 40, color: "rgba(0, 207, 247, 1)" },
+  { index: 27, radius: 40, color: "rgba(255, 3, 100, 1)" },
+  { index: 28, radius: 40, color: "rgba(255, 3, 100, 1)" }
 ];
 
 const drawLandmarkCircles = (canvasCtx, landmarks) => {
@@ -171,6 +171,7 @@ const selfieSegmentation = new SelfieSegmentation({
 });
 selfieSegmentation.setOptions({
   modelSelection: 1,
+  running_mode: 'LIVE_STREAM',
 });
 selfieSegmentation.onResults(drawMask);
 
