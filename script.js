@@ -9,14 +9,14 @@ let chunks = [];
 let latestPoseLandmarks = null;
 
 const landmarkCircles = [
-  { index: 0, radius: 80, color: "rgba(255, 255, 255, 1)" },
-  { index: 15, radius: 40, color: "rgba(0, 207, 247, 1)" },
-  { index: 16, radius: 40, color: "rgba(0, 207, 247, 1)" },
-  { index: 27, radius: 40, color: "rgba(255, 3, 100, 1)" },
-  { index: 28, radius: 40, color: "rgba(255, 3, 100, 1)" }
+  { index: 0, radius: 140, color: "rgb(5, 47, 0)" },
+  { index: 15, radius: 50, color: "rgba(0, 207, 247, 1)" },
+  { index: 16, radius: 50, color: "rgba(0, 207, 247, 1)" },
+  { index: 27, radius: 50, color: "rgba(255, 3, 100, 1)" },
+  { index: 28, radius: 50, color: "rgba(255, 3, 100, 1)" }
 ];
 
-const drawLandmarkCircles = (canvasCtx, landmarks) => {
+const drawOn = (canvasCtx, landmarks) => {
   if (!landmarks) {
     return;
   }
@@ -38,6 +38,18 @@ const drawLandmarkCircles = (canvasCtx, landmarks) => {
     canvasCtx.fillStyle = color;
     canvasCtx.fill();
   });
+
+  
+
+  canvasCtx.beginPath();
+// draw a 4 sided polygon on each landmark  
+canvasCtx.moveTo(landmarks[11].x * maskCanvas.width, landmarks[11].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[12].x * maskCanvas.width, landmarks[12].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[24].x * maskCanvas.width, landmarks[24].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[23].x * maskCanvas.width, landmarks[23].y * maskCanvas.height);
+  canvasCtx.closePath();
+  canvasCtx.fillStyle = "rgba(0, 207, 247, 0.5)";
+  canvasCtx.fill();
 };
 
 let toggleRecording = () => {
@@ -71,7 +83,7 @@ const drawMask = (results) => {
     maskCanvas.width, maskCanvas.height);
 //The new shape is drawn only where both the new shape and the destination canvas overlap. Everything else is made transparent.
       canvasCtx.globalCompositeOperation = 'source-atop';
-  drawLandmarkCircles(canvasCtx, latestPoseLandmarks);
+  drawOn(canvasCtx, latestPoseLandmarks);
   // Only overwrite existing pixels.
 
  
