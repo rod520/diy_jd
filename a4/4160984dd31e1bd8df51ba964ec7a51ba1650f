@@ -1,0 +1,34 @@
+script.js
+  h_7ffaac8f5937a6 19
+  s_8cce0d87df6abb::t_009392346d5749 13-16
+  s_9cbd98750341a8::t_f273b5fe5f2e43 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "a44160984dd31e1bd8df51ba964ec7a51ba1650f",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_8cce0d87df6abb": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784303034464",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_9cbd98750341a8": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784303033322",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
