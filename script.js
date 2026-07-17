@@ -6,6 +6,40 @@ const recordButton = document.getElementById("recordButton");
 let recordFlag = false;
 let playFlag = false;
 let chunks = [];
+let latestPoseLandmarks = null;
+
+const landmarkCircles = [
+  { index: 0, radius: 56, color: "rgba(255, 255, 255, 0.75)" },
+  { index: 15, radius: 32, color: "rgba(0, 207, 247, 0.55)" },
+  { index: 16, radius: 32, color: "rgba(0, 207, 247, 0.55)" },
+  { index: 27, radius: 38, color: "rgba(255, 3, 100, 0.5)" },
+  { index: 28, radius: 38, color: "rgba(255, 3, 100, 0.5)" }
+];
+
+const drawLandmarkCircles = (canvasCtx, landmarks) => {
+  if (!landmarks) {
+    return;
+  }
+
+  landmarkCircles.forEach(({ index, radius, color }) => {
+    const landmark = landmarks[index];
+    if (!landmark) {
+      return;
+    }
+
+    canvasCtx.beginPath();
+    canvasCtx.arc(
+      landmark.x * maskCanvas.width,
+      landmark.y * maskCanvas.height,
+      radius,
+      0,
+      Math.PI * 2
+    );
+    canvasCtx.fillStyle = color;
+    canvasCtx.fill();
+  });
+};
+
 let toggleRecording = () => {
   recordFlag = !recordFlag;
   if (recordFlag) {
@@ -43,6 +77,8 @@ const drawMask = (results) => {
   canvasCtx.globalCompositeOperation = 'destination-atop';
   canvasCtx.drawImage(
     results.image, 0, 0, maskCanvas.width, maskCanvas.height);
+  canvasCtx.globalCompositeOperation = 'source-over';
+  drawLandmarkCircles(canvasCtx, latestPoseLandmarks);
   canvasCtx.restore();
 
 
@@ -60,6 +96,7 @@ audioInput.addEventListener("change", (event) => {
 
 
 const onResults = (results) => {
+  latestPoseLandmarks = results.poseLandmarks;
   if (recordFlag) {
     record.push({
       t: performance.now() - recordStartTime,
