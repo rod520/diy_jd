@@ -5,6 +5,7 @@ let videoElement = document.querySelector(".input_video"),
 const recordButton = document.getElementById("recordButton");
 let recordFlag = false;
 let playFlag = false;
+let chunks = [];
 let toggleRecording = () => {
   recordFlag = !recordFlag;
   if (recordFlag) {
@@ -12,6 +13,11 @@ let toggleRecording = () => {
     playFlag = false;
     recordIndex = 0;
     recordStartTime = performance.now();
+
+    let stream = maskCanvas.captureStream(30)
+    stream.addTracks(audio.captureStream().getTracks());
+    let recorder = new MediaRecorder(stream, {mimeType: "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"});
+    recorder.start();
     audio.play();
     recordButton.value = "Stop Recording";
   } else {
@@ -30,7 +36,7 @@ const drawMask = (results) => {
   canvasCtx.drawImage(results.segmentationMask, 0, 0,
     maskCanvas.width, maskCanvas.height);
   // Only overwrite existing pixels.
-  canvasCtx.globalCompositeOperation = 'source-in';
+      canvasCtx.globalCompositeOperation = 'source-out';
   canvasCtx.fillStyle = '#00FF00';
   canvasCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
   // Only overwrite missing pixels.
