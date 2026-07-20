@@ -30,12 +30,22 @@ const drawOn = (canvasCtx, landmarks) => {
     canvasCtx.fillStyle = color;
     canvasCtx.fill();
   };
-// head circle: radius is .75 times distance to the shoulder (landmark 11)
+// head circle: radius is .65 times distance to the shoulder (landmark 11)
   const shoulderDistance = Math.sqrt(
     Math.pow(landmarks[11].x * maskCanvas.width - landmarks[12].x * maskCanvas.width, 2) +
     Math.pow(landmarks[11].y * maskCanvas.height - landmarks[12].y * maskCanvas.height, 2)
   );
-  const headRadius = shoulderDistance * 0.75;
+  const headDistance = Math.max(
+    Math.sqrt(
+      Math.pow(landmarks[8].x * maskCanvas.width - landmarks[0].x * maskCanvas.width, 2) +
+      Math.pow(landmarks[8].y * maskCanvas.height - landmarks[0].y * maskCanvas.height, 2)
+    ),
+    Math.sqrt(
+      Math.pow(landmarks[7].x * maskCanvas.width - landmarks[0].x * maskCanvas.width, 2) +
+      Math.pow(landmarks[7].y * maskCanvas.height - landmarks[0].y * maskCanvas.height, 2)
+    )
+  );
+  const headRadius = Math.min(shoulderDistance * .65, headDistance * 1.2);
   console.log("headRadius: " + headRadius);
   drawCircle(0, headRadius, "rgb(5, 47, 0)");
 
@@ -48,10 +58,42 @@ const drawOn = (canvasCtx, landmarks) => {
     Math.pow(landmarks[13].x * maskCanvas.width - landmarks[11].x * maskCanvas.width, 2) +
     Math.pow(landmarks[13].y * maskCanvas.height - landmarks[11].y * maskCanvas.height, 2)
   );
-  const wristRadius = Math.min(3 * wristDistance, elbowDistance * 0.2);
+  const wristRadius = Math.min(6 * wristDistance, elbowDistance * 0.2) * 2;
   console.log("wristRadius: " + wristRadius);
-  drawCircle(15, wristRadius, "rgba(0, 207, 247, 1)");
-  drawCircle(16, wristRadius, "rgba(0, 207, 247, 1)");
+  drawCircle(19, wristRadius, "rgba(0, 207, 247, 1)");
+  drawCircle(20, wristRadius, "rgba(0, 207, 247, 1)");
+
+  canvasCtx.beginPath();
+  // draw a thick line from wrist to elbow
+  canvasCtx.moveTo(landmarks[15].x * maskCanvas.width, landmarks[15].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[13].x * maskCanvas.width, landmarks[13].y * maskCanvas.height);
+  canvasCtx.lineWidth = wristRadius / 1.5;
+  canvasCtx.strokeStyle = "rgba(0, 207, 247, 1)";
+  canvasCtx.stroke();
+  // repeat for the other arm
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(landmarks[16].x * maskCanvas.width, landmarks[16].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[14].x * maskCanvas.width, landmarks[14].y * maskCanvas.height);
+  canvasCtx.lineWidth = wristRadius / 1.5;
+  canvasCtx.strokeStyle = "rgba(0, 207, 247, 1)";
+  canvasCtx.stroke();
+  // draw a thick line from shoulder to elbow
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(landmarks[11].x * maskCanvas.width, landmarks[11].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[13].x * maskCanvas.width, landmarks[13].y * maskCanvas.height);
+  canvasCtx.lineWidth = wristRadius / 1.5;
+  canvasCtx.strokeStyle = "rgba(0, 207, 247, 1)";
+  canvasCtx.stroke();
+  // repeat for the other arm
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(landmarks[12].x * maskCanvas.width, landmarks[12].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[14].x * maskCanvas.width, landmarks[14].y * maskCanvas.height);
+  canvasCtx.lineWidth = wristRadius / 1.5;
+  canvasCtx.strokeStyle = "rgba(0, 207, 247, 1)";
+  canvasCtx.stroke();
+
+
+
 
   // foot: radius is distance to heel (landmark 29 and 30), centered on foot index
   const footDistance = Math.sqrt(
@@ -62,6 +104,10 @@ const drawOn = (canvasCtx, landmarks) => {
   drawCircle(31, footRadius, "rgba(255, 3, 100, 1)");
   drawCircle(32, footRadius, "rgba(255, 3, 100, 1)");
 
+
+
+
+  
   canvasCtx.beginPath();
 // draw a 4 sided polygon on each landmark  
 canvasCtx.moveTo(landmarks[11].x * maskCanvas.width, landmarks[11].y * maskCanvas.height);
@@ -69,8 +115,52 @@ canvasCtx.moveTo(landmarks[11].x * maskCanvas.width, landmarks[11].y * maskCanva
   canvasCtx.lineTo(landmarks[24].x * maskCanvas.width, landmarks[24].y * maskCanvas.height);
   canvasCtx.lineTo(landmarks[23].x * maskCanvas.width, landmarks[23].y * maskCanvas.height);
   canvasCtx.closePath();
-  canvasCtx.fillStyle = "rgba(0, 207, 247, 0.5)";
+  
+  canvasCtx.fillStyle = "rgba(0, 207, 247, 1)";
   canvasCtx.fill();
+
+// make this cover more area as the shoulder/hip landmarks dont cover the whole body
+
+canvasCtx.beginPath();
+  canvasCtx.moveTo(landmarks[11].x * maskCanvas.width, landmarks[11].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[12].x * maskCanvas.width, landmarks[12].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[24].x * maskCanvas.width, landmarks[24].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[23].x * maskCanvas.width, landmarks[23].y * maskCanvas.height);
+  canvasCtx.closePath();
+  canvasCtx.lineWidth = Math.sqrt(
+    Math.pow(landmarks[11].x * maskCanvas.width - landmarks[12].x * maskCanvas.width, 2) +
+    Math.pow(landmarks[11].y * maskCanvas.height - landmarks[12].y * maskCanvas.height, 2)
+  ) / 2;
+  canvasCtx.strokeStyle = "rgba(0, 207, 247, 1)";
+  canvasCtx.stroke();
+// */
+  canvasCtx.beginPath();
+  // thick lines for the legs
+  canvasCtx.moveTo(landmarks[23].x * maskCanvas.width, landmarks[23].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[25].x * maskCanvas.width, landmarks[25].y * maskCanvas.height);
+  canvasCtx.lineWidth = footRadius;
+  canvasCtx.strokeStyle = "rgba(255, 3, 100, 1)";
+  canvasCtx.stroke();
+  // repeat for the other leg
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(landmarks[24].x * maskCanvas.width, landmarks[24].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[26].x * maskCanvas.width, landmarks[26].y * maskCanvas.height);
+  canvasCtx.lineWidth = footRadius;
+  canvasCtx.strokeStyle = "rgba(255, 3, 100, 1)";
+  canvasCtx.stroke();
+  canvasCtx.restore();
+  // hip to hip line
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(landmarks[23].x * maskCanvas.width, landmarks[23].y * maskCanvas.height);
+  canvasCtx.lineTo(landmarks[24].x * maskCanvas.width, landmarks[24].y * maskCanvas.height);
+  canvasCtx.lineWidth = footRadius * 1.4;
+  canvasCtx.strokeStyle = "rgba(255, 3, 100, 1)";
+  canvasCtx.stroke();
+  // hip markers
+    drawCircle(23, footRadius, "rgba(255, 3, 100, 1)");
+    drawCircle(24, footRadius, "rgba(255, 3, 100, 1)");
+
+  
 };
 
 let toggleRecording = () => {
