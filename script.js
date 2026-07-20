@@ -1,7 +1,7 @@
 let videoElement = document.querySelector(".input_video"),
   guideCanvas = document.querySelector('canvas.guides'),
   maskCanvas = document.querySelector('canvas.masked');
-
+const videoInput = document.getElementById("videoInput");
 const recordButton = document.getElementById("recordButton");
 let recordFlag = false;
 let playFlag = false;
@@ -295,15 +295,26 @@ selfieSegmentation.setOptions({
   running_mode: 'LIVE_STREAM',
 });
 selfieSegmentation.onResults(drawMask);
-
-const camera = new Camera(videoElement, {
-  onFrame: async () => {
+const onFrame = async () => {
     await pose.send({ image: videoElement });
     await selfieSegmentation.send({ image: videoElement });
-  },
+  }
+/* camera
+const camera = new Camera(videoElement, {
+  onFrame: onFrame,
   width: 640,
   height: 480
 });
 camera.start();
+*/
+// instead, we're loading from a video file, so we need to set up an event listener for when the video is playing
 
+videoElement.addEventListener("play", () => {
+  videoElement.requestVideoFrameCallback(onFrame);
+});
 
+videoInput.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  videoElement.src = URL.createObjectURL(file);
+  videoElement.play();
+});
