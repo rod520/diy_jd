@@ -1,0 +1,144 @@
+script.js
+  s_7e517cf2152389::t_e5c96740acfea1 72-76
+  s_020f5ebd34caf2::t_9c0a64784b17cf 77
+  s_c7e9686ad06533::t_acdbe5fe858064 33
+  h_7ffaac8f5937a6 42,48,66-67,69,89,93-96
+  s_da17c0004a5310::t_0512fb35b12e07 40-41,43-44
+  s_5c7c4d72bb35c3::t_e36167c14a9cad 86,135,143,150,158
+  s_a1e3a1a5bc6ee7::t_714da6764a9974 78,85,92,134
+  s_6e2453bb933878::t_8cddfd7870e550 63-65
+  s_1e23abb2919684::t_55264a880e6432 84
+  s_16821956f89d46::t_feff75c4c01ef6 87-88,90-91,137,145,153
+  s_0ada14153ab04b::t_df798b3eb8caf2 38
+  s_66aca1db60d05d::t_22858120ecd6e8 71
+  s_20649ffd9d5be0::t_1a72fe072ed921 79-83,125
+  s_aff34949b25e6f::t_d66034a2d48db8 70
+  s_2fa052817543a2::t_cf245789dd2671 39
+  s_20649ffd9d5be0::t_c4f7bb4f063ec6 122-124
+  s_5c7c4d72bb35c3::t_31732b56abef5c 159-161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "8d72037b1f6e297da537400ff068d3fdd7aa8aac",
+  "prompts": {},
+  "humans": {
+    "h_7ffaac8f5937a6": {
+      "author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_020f5ebd34caf2": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553557772",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_0ada14153ab04b": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553447926",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_16821956f89d46": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784554932033",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_1e23abb2919684": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553570372",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_20649ffd9d5be0": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553561229",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_2fa052817543a2": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553448987",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_5c7c4d72bb35c3": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784554929962",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_66aca1db60d05d": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553552809",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_6e2453bb933878": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784554441160",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_7e517cf2152389": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553553786",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_a1e3a1a5bc6ee7": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553559773",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_aff34949b25e6f": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553538738",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_c7e9686ad06533": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553439571",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    },
+    "s_da17c0004a5310": {
+      "agent_id": {
+        "tool": "github-copilot-tab",
+        "id": "ai_tab-1784553451815",
+        "model": "default"
+      },
+      "human_author": "rod520 <rodriguesorlen@gmail.com>"
+    }
+  }
+}
